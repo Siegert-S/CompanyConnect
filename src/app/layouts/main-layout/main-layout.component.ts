@@ -5,12 +5,12 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-main-layout',
   standalone: true,
   imports: [RouterOutlet, MatToolbarModule, MatIconModule, MatSidenavModule, RouterModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  templateUrl: './main-layout.component.html',
+  styleUrl: './main-layout.component.scss'
 })
-export class AppComponent {
-  title = 'company-connect';
+export class MainLayoutComponent {
+
 }

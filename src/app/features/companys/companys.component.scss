@@ -1,0 +1,27 @@
+.alphabet_index_filter {
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+        width: calc(100% / 29);
+        // height: 30px;
+        aspect-ratio: 1 / 1;
+
+        border: none;
+        outline: none;
+
+        &:hover {
+            background-color: palegreen;
+        }
+
+        &.activ {
+            background-color: greenyellow;
+
+            &:hover {
+                background-color: palevioletred;
+            }
+        }
+
+
+    }
+}

@@ -1,0 +1,62 @@
+mat-drawer-container {
+    height: 100vh;
+
+}
+
+.sidenav {
+    background-color: paleturquoise;
+    max-width: 300px;
+    width: 20vw;
+}
+
+
+mat-drawer-content {
+    background-color: palevioletred;
+}
+
+.menu-icon {
+    cursor: pointer;
+}
+
+.logo-container {
+    padding: 0px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+}
+
+mat-toolbar {
+    min-height: 56px;
+    height: 56px;
+    // background-color: #4c5af3;
+}
+
+.menu-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        height: 48px;
+        padding: 0px 16px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        mat-icon {
+            margin-right: 16px;
+        }
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+
+        }
+    }
+}
+
+.router-container {
+    padding: 56px 16px;
+    box-sizing: border-box;
+    height: calc(100% - 56px);
+}

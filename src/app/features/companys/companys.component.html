@@ -1,0 +1,28 @@
+<div>
+    such leiste
+</div>
+<div class="alphabet_index_filter">
+    <button *ngFor="let letter of alphabet" (click)="setFilter(letter)"
+        [class.activ]=" letter == filter">{{letter}}</button>
+</div>
+<div>
+    <mat-paginator [length]="filteredList.length" [pageSize]="25" aria-label="Select page"
+        (page)="onPageChange($event)">>
+    </mat-paginator>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Nummer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let kunde of showList">
+                <td>{{ kunde.name }}</td>
+                <td>{{ kunde.number }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
