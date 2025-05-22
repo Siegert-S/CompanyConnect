@@ -3,7 +3,7 @@ import { Note } from "./note.interface";
 export interface ContactPerson {
     name: string;
     email: string;
-    phone: number;
+    phone: string;
     position: string;
     note?: Note;
 }
