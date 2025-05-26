@@ -1,1 +1,49 @@
-<p>tabel works!</p>
+<div class="table_frame">
+
+    <div class="user_filter_frame">
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="filterValues.name.value" (ngModelChange)="applyFilter()"
+                placeholder="Placeholder">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Strasse</mat-label>
+            <input matInput [(ngModel)]="filterValues.street.value" (ngModelChange)="applyFilter()"
+                placeholder="Placeholder">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>PLZ</mat-label>
+            <input matInput [(ngModel)]="filterValues.postelcode.value" (ngModelChange)="applyFilter()"
+                placeholder="Placeholder">
+        </mat-form-field>
+    </div>
+
+    <div class="alphabet_index_filter">
+        <button *ngFor="let letter of alphabet" (click)="setFilter(letter)"
+            [class.activ]=" letter == filterValues.startsWith.value">{{letter}}</button>
+    </div>
+
+    <div>
+        <mat-paginator [length]="dataFiltered.length" [pageSize]="25" aria-label="Select page"
+            (page)="onPageChange($event)">>
+        </mat-paginator>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Strasse</th>
+                    <th>PLZ</th>
+                    <th>Stadt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of dataShow">
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.address.street }}</td>
+                    <td>{{ data.address.postalCode }}</td>
+                    <td>{{ data.address.city }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

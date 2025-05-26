@@ -1,0 +1,42 @@
+.table_frame{
+    background-color: palegreen;
+    height: 100%;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 8px;
+    box-shadow: 5px 5px 5px rgba($color: #000000, $alpha: 0.3);
+}
+
+.user_filter_frame{
+    display: flex;
+    justify-content: space-between;
+}
+
+.alphabet_index_filter {
+    display: flex;
+    justify-content: space-evenly;
+    // border-radius: 8px;
+
+    button {
+        width: calc(100% / 29);
+        // height: 30px;
+        aspect-ratio: 1 / 1;
+
+        border: none;
+        outline: none;
+
+        &:hover {
+            background-color: palegreen;
+        }
+
+        &.activ {
+            background-color: greenyellow;
+
+            &:hover {
+                background-color: palevioletred;
+            }
+        }
+
+
+    }
+}
