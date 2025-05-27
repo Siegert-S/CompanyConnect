@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
 type Data = Company[];
+type Type = Company | '';
 
 @Component({
   selector: 'app-tabel',
@@ -24,7 +25,7 @@ export class TabelComponent {
 
   private subscription!: Subscription;
   data: Data = [];
-  dataType: string = '';
+  dataType: Type = '';
   dataFiltered: Data = [];
   dataShow: Data = [];
   filter: string = '';
@@ -35,6 +36,17 @@ export class TabelComponent {
     street: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
     postelcode: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByPostalcode(data, filter); } },
     city: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
+  }
+
+  tableConfig = {
+    company: {
+      filters: ['name', 'street', 'postelcode', 'city'],
+      columns: ['name', 'address.street', 'address.postalCode', 'address.city', 'materials'],
+    },
+    material: {
+      filters: ['name',],
+      columns: ['name',],
+    }
   }
 
   alphabet: string[] = [
@@ -58,27 +70,26 @@ export class TabelComponent {
     this.subscription.unsubscribe();
   }
 
-  selectTableSetup() {
-    switch (this.data[0].type) {
-      case 'Company':
-        this.configForCompany();
-        break;
+  // selectTableSetup() {
+  //   switch (this.data[0].type) {
+  //     case 'Company':
+  //       this.configForCompany();
+  //       break;
 
-      default:
-        break;
-    }
-  }
+  //     default:
+  //       break;
+  //   }
+  // }
 
+  // configForCompany(number?: number) {
+  //   console.log('call is' + number);
+  //   console.log('data is Company');
+  // }
 
-  configForCompany(number?: number) {
-    console.log('call is' + number);
-    console.log('data is Company');
-  }
-
-  configForMatirial(number?: number) {
-    console.log('call is' + number);
-    console.log('data is Matirial');
-  }
+  // configForMatirial(number?: number) {
+  //   console.log('call is' + number);
+  //   console.log('data is Matirial');
+  // }
 
   setFilter(filter: string) {
     if (filter != this.filterValues.startsWith.value) {
@@ -87,26 +98,16 @@ export class TabelComponent {
       this.filterValues.startsWith.value = '';
     }
     this.applyFilter();
-    // this.dataFiltered = this.filterByName(this.data, this.filter);
-    // this.loadTablePart();
-    // this.paginator.firstPage();
   }
 
   applyFilter() {
     this.dataFiltered = this.data;
     Object.entries(this.filterValues).forEach(([key, value]) => {
-      // console.log(key);
-      // console.log(value.value);
       if (value.value) {
-        console.log('der ' + key + ' filter nicht leer');
         this.dataFiltered = value.filterFunction(this.dataFiltered, value.value);
       }
 
     });
-
-    // this.dataFiltered = this.filterByName(this.data, this.filterValues.startsWith.value);
-    // this.dataFiltered = this.filterByName(this.dataFiltered, this.filterValues.name.value);
-    // this.dataFiltered = this.filterByPostalcode(this.dataFiltered, this.filterValues.postelcode.value);
 
     this.loadTablePart();
     this.paginator.firstPage();

@@ -24,16 +24,17 @@
     </div>
 
     <div>
-        <mat-paginator [length]="dataFiltered.length" [pageSize]="25" aria-label="Select page"
+        <mat-paginator [length]="dataFiltered.length" [hidePageSize]="true" [showFirstLastButtons]="true" [pageSize]="25" aria-label="Select page"
             (page)="onPageChange($event)">>
         </mat-paginator>
-        <table>
+        <table class="table">
             <thead>
-                <tr>
+                <tr class="tabel_head">
                     <th>Name</th>
                     <th>Strasse</th>
                     <th>PLZ</th>
                     <th>Stadt</th>
+                    <th>Materieal</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,7 @@
                     <td>{{ data.address.street }}</td>
                     <td>{{ data.address.postalCode }}</td>
                     <td>{{ data.address.city }}</td>
+                    <td>{{ data.materials }}</td>
                 </tr>
             </tbody>
         </table>
