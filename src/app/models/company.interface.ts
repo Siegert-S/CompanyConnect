@@ -4,7 +4,7 @@ import { Project } from "./project.interface";
 import { SuppliedCustomer } from "./supplied-customer.interface";
 
 export interface Company {
-    type: 'Company';
+    type: 'company';
     name: string;
     address: Address;
     contactPersons: ContactPerson[];

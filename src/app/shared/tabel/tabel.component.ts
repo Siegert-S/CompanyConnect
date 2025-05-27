@@ -7,14 +7,23 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { NestedPipe } from '../pipes/nested.pipe';
+
+interface TableSectionConfig {
+  filters: string[];
+  columns: string[];
+  columnName: string[];
+}
+
+type TableConfig = Record<string, TableSectionConfig>;
 
 type Data = Company[];
-type Type = Company | '';
+type Type = 'company' | '';
 
 @Component({
   selector: 'app-tabel',
   standalone: true,
-  imports: [MatPaginatorModule, CommonModule, MatFormFieldModule, MatInputModule, FormsModule],
+  imports: [MatPaginatorModule, CommonModule, MatFormFieldModule, MatInputModule, FormsModule, NestedPipe],
   templateUrl: './tabel.component.html',
   styleUrl: './tabel.component.scss'
 })
@@ -38,14 +47,16 @@ export class TabelComponent {
     city: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
   }
 
-  tableConfig = {
+  tableConfig: TableConfig = {
     company: {
       filters: ['name', 'street', 'postelcode', 'city'],
       columns: ['name', 'address.street', 'address.postalCode', 'address.city', 'materials'],
+      columnName: ['name', 'street', 'postalCode', 'city', 'materials'],
     },
     material: {
       filters: ['name',],
       columns: ['name',],
+      columnName: ['name',],
     }
   }
 

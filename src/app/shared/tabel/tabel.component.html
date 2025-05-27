@@ -24,26 +24,23 @@
     </div>
 
     <div>
-        <mat-paginator [length]="dataFiltered.length" [hidePageSize]="true" [showFirstLastButtons]="true" [pageSize]="25" aria-label="Select page"
-            (page)="onPageChange($event)">>
+        <mat-paginator [length]="dataFiltered.length" [hidePageSize]="true" [showFirstLastButtons]="true"
+            [pageSize]="25" aria-label="Select page" (page)="onPageChange($event)">>
         </mat-paginator>
         <table class="table">
             <thead>
                 <tr class="tabel_head">
-                    <th>Name</th>
+                    <!-- <th>Name</th>
                     <th>Strasse</th>
                     <th>PLZ</th>
                     <th>Stadt</th>
-                    <th>Materieal</th>
+                    <th>Materieal</th> -->
+                    <th *ngFor="let config of tableConfig[dataType].columnName">{{config | titlecase}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of dataShow">
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.address.street }}</td>
-                    <td>{{ data.address.postalCode }}</td>
-                    <td>{{ data.address.city }}</td>
-                    <td>{{ data.materials }}</td>
+                    <td *ngFor="let config of tableConfig[dataType].columns">{{ data | nested:config }}</td>
                 </tr>
             </tbody>
         </table>

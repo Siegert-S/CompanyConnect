@@ -26,7 +26,7 @@ export class CompanyService {
 
     const companies: Company[] = [
       {
-        type: 'Company',
+        type: 'company',
         name: 'Iguss',
         address: {
           street: 'Beispielstraße',
@@ -48,7 +48,7 @@ export class CompanyService {
         companyWebsite: 'www.firma.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'TechPlast',
         address: {
           street: 'Industriestraße',
@@ -69,7 +69,7 @@ export class CompanyService {
         companyWebsite: 'www.techplast.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'Kunststoff Werke',
         address: {
           street: 'Werkstraße',
@@ -90,7 +90,7 @@ export class CompanyService {
         companyWebsite: 'www.kunststoffwerke.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'Formex GmbH',
         address: {
           street: 'Formstraße',
@@ -111,7 +111,7 @@ export class CompanyService {
         companyWebsite: 'www.formex.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'Plastec AG',
         address: {
           street: 'AG-Allee',
@@ -132,7 +132,7 @@ export class CompanyService {
         companyWebsite: 'www.plastec.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'Polymer Solutions',
         address: {
           street: 'Lösungsweg',
@@ -153,7 +153,7 @@ export class CompanyService {
         companyWebsite: 'www.polymer-solutions.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'Musterform GmbH',
         address: {
           street: 'Musterweg',
@@ -174,7 +174,7 @@ export class CompanyService {
         companyWebsite: 'www.musterform.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'FlexoPlast',
         address: {
           street: 'Flexstraße',
@@ -195,7 +195,7 @@ export class CompanyService {
         companyWebsite: 'www.flexoplast.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'InjectionX',
         address: {
           street: 'X-Weg',
@@ -216,7 +216,7 @@ export class CompanyService {
         companyWebsite: 'www.injectionx.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'ThermoPlastik',
         address: {
           street: 'Thermoweg',
@@ -237,7 +237,7 @@ export class CompanyService {
         companyWebsite: 'www.thermoplastik.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'MoldExperts',
         address: {
           street: 'Expertstraße',
@@ -258,7 +258,7 @@ export class CompanyService {
         companyWebsite: 'www.moldexperts.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'PlastForm',
         address: {
           street: 'Formallee',
@@ -279,7 +279,7 @@ export class CompanyService {
         companyWebsite: 'www.plastform.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'ProtoPlastik',
         address: {
           street: 'Prototypweg',
@@ -300,7 +300,7 @@ export class CompanyService {
         companyWebsite: 'www.protoplastik.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'EcoPlast',
         address: {
           street: 'Ökoweg',
@@ -321,7 +321,7 @@ export class CompanyService {
         companyWebsite: 'www.ecoplast.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'DuroForm',
         address: {
           street: 'Hartenstraße',
@@ -342,7 +342,7 @@ export class CompanyService {
         companyWebsite: 'www.duroform.de',
       },
       {
-        type: 'Company',
+        type: 'company',
         name: 'Plast-InnoTech',
         address: {
           street: 'Innovationsweg',
