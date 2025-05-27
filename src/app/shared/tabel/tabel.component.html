@@ -1,7 +1,14 @@
 <div class="table_frame">
 
     <div class="user_filter_frame">
-        <mat-form-field appearance="outline">
+        <div *ngFor="let config of tableConfig[dataType].filters">
+            <mat-form-field appearance="outline">
+                <mat-label>{{config | titlecase }}</mat-label>
+                <input matInput [(ngModel)]="filterValues[config].value" (ngModelChange)="applyFilter()"
+                    placeholder="Placeholder">
+            </mat-form-field>
+        </div>
+        <!-- <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input matInput [(ngModel)]="filterValues.name.value" (ngModelChange)="applyFilter()"
                 placeholder="Placeholder">
@@ -15,12 +22,12 @@
             <mat-label>PLZ</mat-label>
             <input matInput [(ngModel)]="filterValues.postelcode.value" (ngModelChange)="applyFilter()"
                 placeholder="Placeholder">
-        </mat-form-field>
+        </mat-form-field> -->
     </div>
 
     <div class="alphabet_index_filter">
         <button *ngFor="let letter of alphabet" (click)="setFilter(letter)"
-            [class.activ]=" letter == filterValues.startsWith.value">{{letter}}</button>
+            [class.activ]=" letter == filterValues['startsWith'].value">{{letter}}</button>
     </div>
 
     <div>
@@ -30,11 +37,6 @@
         <table class="table">
             <thead>
                 <tr class="tabel_head">
-                    <!-- <th>Name</th>
-                    <th>Strasse</th>
-                    <th>PLZ</th>
-                    <th>Stadt</th>
-                    <th>Materieal</th> -->
                     <th *ngFor="let config of tableConfig[dataType].columnName">{{config | titlecase}}</th>
                 </tr>
             </thead>

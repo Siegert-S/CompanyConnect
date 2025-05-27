@@ -9,12 +9,18 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { NestedPipe } from '../pipes/nested.pipe';
 
+type FilterFunction = (data: Data, filter: string) => Data;
+
+interface FilterEntry {
+  value: string;
+  filterFunction: FilterFunction;
+}
+
 interface TableSectionConfig {
   filters: string[];
   columns: string[];
   columnName: string[];
 }
-
 type TableConfig = Record<string, TableSectionConfig>;
 
 type Data = Company[];
@@ -39,7 +45,7 @@ export class TabelComponent {
   dataShow: Data = [];
   filter: string = '';
 
-  filterValues = {
+  filterValues: { [key: string]: FilterEntry } = {
     startsWith: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
     name: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
     street: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
@@ -103,10 +109,10 @@ export class TabelComponent {
   // }
 
   setFilter(filter: string) {
-    if (filter != this.filterValues.startsWith.value) {
-      this.filterValues.startsWith.value = filter;
+    if (filter != this.filterValues['startsWith'].value) {
+      this.filterValues['startsWith'].value = filter;
     } else {
-      this.filterValues.startsWith.value = '';
+      this.filterValues['startsWith'].value = '';
     }
     this.applyFilter();
   }
