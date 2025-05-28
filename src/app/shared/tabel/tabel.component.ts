@@ -35,7 +35,7 @@ type Type = 'company' | '';
 })
 export class TabelComponent {
 
-  @Input() data$!: Observable<Company[]>;
+  @Input() data$!: Observable<Data>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   private subscription!: Subscription;
@@ -86,27 +86,6 @@ export class TabelComponent {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-  // selectTableSetup() {
-  //   switch (this.data[0].type) {
-  //     case 'Company':
-  //       this.configForCompany();
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // }
-
-  // configForCompany(number?: number) {
-  //   console.log('call is' + number);
-  //   console.log('data is Company');
-  // }
-
-  // configForMatirial(number?: number) {
-  //   console.log('call is' + number);
-  //   console.log('data is Matirial');
-  // }
 
   setFilter(filter: string) {
     if (filter != this.filterValues['startsWith'].value) {

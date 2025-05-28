@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, ViewChild, inject, Inject } from '@angular/core';
 import { MatPaginatorModule, PageEvent, MatPaginator } from '@angular/material/paginator';
 import { TabelComponent } from "../../shared/tabel/tabel.component";
-import { CompanyService } from '../../services/company.service';
+import { CompanyService } from '../../services/company/company.service';
 import { Company } from '../../models';
 import { Observable } from 'rxjs';
 
