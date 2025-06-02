@@ -8,21 +8,6 @@
                     placeholder="Placeholder">
             </mat-form-field>
         </div>
-        <!-- <mat-form-field appearance="outline">
-            <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="filterValues.name.value" (ngModelChange)="applyFilter()"
-                placeholder="Placeholder">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Strasse</mat-label>
-            <input matInput [(ngModel)]="filterValues.street.value" (ngModelChange)="applyFilter()"
-                placeholder="Placeholder">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>PLZ</mat-label>
-            <input matInput [(ngModel)]="filterValues.postelcode.value" (ngModelChange)="applyFilter()"
-                placeholder="Placeholder">
-        </mat-form-field> -->
     </div>
 
     <div class="alphabet_index_filter">
@@ -37,7 +22,15 @@
         <table class="table">
             <thead>
                 <tr class="tabel_head">
-                    <th *ngFor="let config of tableConfig[dataType].columnName">{{config | titlecase}}</th>
+                    <th *ngFor="let config of tableConfig[dataType].columns ; let i = index;"
+                        (click)="setSortValue(config)">
+                        {{tableConfig[dataType].columnName[i] | titlecase}}
+
+                        <mat-icon [style.visibility]="sortValue.target === config ? 'visible' : 'hidden'">
+                            {{ sortValue.descending ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+                        </mat-icon>
+
+                    </th>
                 </tr>
             </thead>
             <tbody>

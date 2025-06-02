@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { NestedPipe } from '../pipes/nested.pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 type FilterFunction = (data: Data, filter: string) => Data;
 
@@ -29,7 +30,7 @@ type Type = 'company' | '';
 @Component({
   selector: 'app-tabel',
   standalone: true,
-  imports: [MatPaginatorModule, CommonModule, MatFormFieldModule, MatInputModule, FormsModule, NestedPipe],
+  imports: [MatPaginatorModule, CommonModule, MatFormFieldModule, MatInputModule, FormsModule, NestedPipe, MatIconModule],
   templateUrl: './tabel.component.html',
   styleUrl: './tabel.component.scss'
 })
@@ -44,6 +45,11 @@ export class TabelComponent {
   dataFiltered: Data = [];
   dataShow: Data = [];
   filter: string = '';
+
+  sortValue = {
+    target: 'name',
+    descending: false,
+  }
 
   filterValues: { [key: string]: FilterEntry } = {
     startsWith: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
@@ -96,6 +102,29 @@ export class TabelComponent {
     this.applyFilter();
   }
 
+  setSortValue(target: string) {
+    if (this.sortValue.target == target) {
+      this.sortValue.descending = !this.sortValue.descending;
+    } else {
+      this.sortValue.target = target;
+      this.sortValue.descending = false;
+    }
+
+    this.applyFilter();
+  }
+
+  getValueByPath(obj: any, path: string): string {
+    return path.split('.').reduce((acc, part) => acc?.[part], obj) ?? '#';
+  }
+
+  setSort(data: Data, target: string, descending: Boolean): Data {
+    const sorted = [...data].sort((a, b) => {
+      return this.getValueByPath(a, target).localeCompare(this.getValueByPath(b, target));
+    });
+
+    return descending ? sorted.reverse() : sorted;
+  }
+
   applyFilter() {
     this.dataFiltered = this.data;
     Object.entries(this.filterValues).forEach(([key, value]) => {
@@ -104,6 +133,7 @@ export class TabelComponent {
       }
 
     });
+    this.dataFiltered = this.setSort(this.dataFiltered, this.sortValue.target, this.sortValue.descending);
 
     this.loadTablePart();
     this.paginator.firstPage();
@@ -136,7 +166,6 @@ export class TabelComponent {
   }
 
   onPageChange(event: PageEvent) {
-    console.log('Change wird aufgerufen');
     this.loadTablePart(event.pageIndex, event.pageSize);
   }
 
