@@ -21,14 +21,15 @@
         </mat-paginator>
         <table class="table">
             <thead>
-                <tr class="tabel_head">
+                <tr>
                     <th *ngFor="let config of tableConfig[dataType].columns ; let i = index;"
                         (click)="setSortValue(config)">
-                        {{tableConfig[dataType].columnName[i] | titlecase}}
-
-                        <mat-icon [style.visibility]="sortValue.target === config ? 'visible' : 'hidden'">
-                            {{ sortValue.descending ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
-                        </mat-icon>
+                        <div>
+                            {{tableConfig[dataType].columnName[i] | titlecase}}
+                            <mat-icon [style.visibility]="sortValue.target === config ? 'visible' : 'hidden'">
+                                {{ sortValue.descending ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+                            </mat-icon>
+                        </div>
 
                     </th>
                 </tr>

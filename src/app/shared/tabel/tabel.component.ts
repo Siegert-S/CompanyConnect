@@ -114,12 +114,23 @@ export class TabelComponent {
   }
 
   getValueByPath(obj: any, path: string): string {
-    return path.split('.').reduce((acc, part) => acc?.[part], obj) ?? '#';
+    let target = path.split('.').reduce((acc, part) => acc?.[part], obj) ?? '#';
+    // console.log(path);
+
+    // console.log(typeof (target));
+
+    return target;
   }
 
   setSort(data: Data, target: string, descending: Boolean): Data {
     const sorted = [...data].sort((a, b) => {
-      return this.getValueByPath(a, target).localeCompare(this.getValueByPath(b, target));
+      const aVal = this.getValueByPath(a, target);
+      const bVal = this.getValueByPath(b, target);
+
+      if (typeof (aVal) == 'string' && typeof (bVal) == 'string') {
+        return aVal.localeCompare(bVal);
+      }
+      return 0;
     });
 
     return descending ? sorted.reverse() : sorted;
