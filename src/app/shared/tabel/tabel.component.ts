@@ -14,7 +14,8 @@ type FilterFunction = (data: Data, filter: string) => Data;
 
 interface FilterEntry {
   value: string;
-  filterFunction: FilterFunction;
+  // filterFunction: FilterFunction;
+  path: string;
 }
 
 interface TableSectionConfig {
@@ -52,16 +53,17 @@ export class TabelComponent {
   }
 
   filterValues: { [key: string]: FilterEntry } = {
-    startsWith: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
-    name: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
-    street: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
-    postelcode: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByPostalcode(data, filter); } },
-    city: { value: '', filterFunction: (data: Data, filter: string): Data => { return this.filterByName(data, filter); } },
+    startsWith: { value: '', path: 'name' },
+    name: { value: '', path: 'name' },
+    street: { value: '', path: 'address.street' },
+    postelcode: { value: '', path: 'address.postalCode' },
+    city: { value: '', path: 'address.city' },
+    materials: { value: '', path: 'materials' },
   }
 
   tableConfig: TableConfig = {
     company: {
-      filters: ['name', 'street', 'postelcode', 'city'],
+      filters: ['name', 'postelcode', 'city', 'materials'],
       columns: ['name', 'address.street', 'address.postalCode', 'address.city', 'materials'],
       columnName: ['name', 'street', 'postalCode', 'city', 'materials'],
     },
@@ -102,6 +104,13 @@ export class TabelComponent {
     this.applyFilter();
   }
 
+  resetFilter() {
+    Object.entries(this.filterValues).forEach(([key, value]) => {
+      value.value = '';
+    });
+    this.applyFilter();
+  }
+
   setSortValue(target: string) {
     if (this.sortValue.target == target) {
       this.sortValue.descending = !this.sortValue.descending;
@@ -109,17 +118,7 @@ export class TabelComponent {
       this.sortValue.target = target;
       this.sortValue.descending = false;
     }
-
     this.applyFilter();
-  }
-
-  getValueByPath(obj: any, path: string): string {
-    let target = path.split('.').reduce((acc, part) => acc?.[part], obj) ?? '#';
-    // console.log(path);
-
-    // console.log(typeof (target));
-
-    return target;
   }
 
   setSort(data: Data, target: string, descending: Boolean): Data {
@@ -136,11 +135,17 @@ export class TabelComponent {
     return descending ? sorted.reverse() : sorted;
   }
 
+  getValueByPath(obj: any, path: string): string {
+    let target = path.split('.').reduce((acc, part) => acc?.[part], obj) ?? '#';
+    return target;
+  }
+
   applyFilter() {
     this.dataFiltered = this.data;
     Object.entries(this.filterValues).forEach(([key, value]) => {
+
       if (value.value) {
-        this.dataFiltered = value.filterFunction(this.dataFiltered, value.value);
+        this.dataFiltered = this.filterByKey(this.dataFiltered, value.path, value.value);
       }
 
     });
@@ -150,30 +155,23 @@ export class TabelComponent {
     this.paginator.firstPage();
   }
 
-  filterByName(dataToFilter: Company[], filter?: string,): Data {
-    console.log('filterByName wird aufgerufen');
-    let filtered = [];
-
-    if (filter && filter.trim() !== '') {
-      filtered = dataToFilter.filter(data => data.name.toLowerCase().startsWith(filter.toLowerCase()));
-    } else {
-      filtered = dataToFilter
+  filterByKey(dataToFilter: Data, key: string, filter: string): Data {
+    if (!filter && filter.trim() == '') {
+      return dataToFilter;
     }
+    const lowerFilter = filter.toLowerCase();
 
-    return filtered;
-  }
+    return dataToFilter.filter(data => {
+      const target = this.getValueByPath(data, key);
+      if (typeof target == 'string') {
+        return target.toLowerCase().startsWith(lowerFilter);
+      }
 
-  filterByPostalcode(dataToFilter: Company[], filter?: string,): Data {
-    console.log('filterByPostalcode wird aufgerufen');
-    let filtered = [];
-
-    if (filter && filter.trim() !== '') {
-      filtered = dataToFilter.filter(data => data.address.postalCode.toLowerCase().startsWith(filter.toLowerCase()));
-    } else {
-      filtered = dataToFilter
-    }
-
-    return filtered;
+      if (Array.isArray(target)) {
+        return (target as string[]).some((item: string) => item.toLowerCase().startsWith(lowerFilter));
+      }
+      return false;
+    });
   }
 
   onPageChange(event: PageEvent) {
